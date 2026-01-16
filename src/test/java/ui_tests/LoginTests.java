@@ -11,4 +11,6 @@ public class LoginTests extends AppManager {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
     }
+
+
 }

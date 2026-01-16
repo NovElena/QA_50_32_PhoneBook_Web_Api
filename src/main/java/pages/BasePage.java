@@ -9,6 +9,7 @@ public abstract class BasePage {
         driver = wd;
     }
 
+
     public void pause(int time){
         try {
             Thread.sleep(time*1000L);
