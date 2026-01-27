@@ -17,6 +17,7 @@ public class HomePage extends BasePage{
     WebElement btnLogin;
 
     public void clickBtnLogin(){
+
         btnLogin.click();
     }
 
