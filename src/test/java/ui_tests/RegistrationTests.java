@@ -41,4 +41,41 @@ public class RegistrationTests extends AppManager {
         Assert.assertTrue(new ContactPage(getDriver())
                 .isTextInContactPageMessagePresent("No Contacts here!"));
     }
+
+    @Test
+    public void registrationNegativeTest_WrongEmail_WOAtSymbol(){
+        User user = new User("wrongEmail1gmail.com", "Password124!");
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnRegistrationForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
+
+    }
+
+    @Test
+    public void registrationNegativeTest_WrongEmail_Empty(){
+        User user = new User("", "Password124!");
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnRegistrationForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
+
+    }
+
+    @Test
+    public void registrationNegativeTest_WrongPassword_WOUpperCase(){
+        User user = new User("wrongEmail1gmail.com", "password124!");
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnRegistrationForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
+
+    }
+
+    @Test
+    public void registrationNegativeTest_WrongPassword_WOSpecSymbol(){
+        User user = new User("wrongEmail1gmail.com", "Password124");
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnRegistrationForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
+
+    }
+
 }

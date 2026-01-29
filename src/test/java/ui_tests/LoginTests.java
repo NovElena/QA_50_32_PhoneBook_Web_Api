@@ -35,7 +35,7 @@ public class LoginTests extends AppManager {
     }
 
     @Test
-    public void loginNegativeTest_WrongEmail(){
+    public void loginNegativeTest_WrongEmail_WOSpecSymbol(){
         User user = new User("familymail.ru", "Family123!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
@@ -45,4 +45,43 @@ public class LoginTests extends AppManager {
         Assert.assertEquals(loginPage.closeAlertReturnText(),
                 "Wrong email or password");
     }
+
+    @Test
+    public void loginNegativeTest_WrongEmail_Empty(){
+        User user = new User("", "Family123!");
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnLoginForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),
+                "Wrong email or password");
+    }
+
+    @Test
+    public void loginNegativeTest_WrongPassword_Short(){
+        User user = new User("family@mail.ru", "WP123");
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnLoginForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),
+                "Wrong email or password");
+    }
+
+    @Test
+    public void loginNegativeTest_WrongPassword_WOUpperCase(){
+        User user = new User("family@mail.ru", "family123");
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLogin();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginRegistrationFormWithUser(user);
+        loginPage.clickBtnLoginForm();
+        Assert.assertEquals(loginPage.closeAlertReturnText(),
+                "Wrong email or password");
+    }
+
+
+
 }
