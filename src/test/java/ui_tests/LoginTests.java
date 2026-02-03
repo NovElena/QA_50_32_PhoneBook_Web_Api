@@ -7,16 +7,17 @@ import org.testng.annotations.Test;
 import pages.ContactPage;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
 
 public class LoginTests extends AppManager {
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginPositiveTest(){
         // System.out.println("first test");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginRegistrationForm("family@mail.ru",
-                "Family123!");
+        loginPage.typeLoginRegistrationForm("123qwe@gmail.com",
+                "123Qwerty!");
         loginPage.clickBtnLoginForm();
         Assert.assertTrue(new ContactPage(getDriver())
                 .isTextInBtnAddPresent("ADD"));
@@ -24,8 +25,8 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginPositiveTestWithUser(){
-        User user = new User("family@mail.ru",
-                "Family123!");
+        User user = new User("123qwe@gmail.com",
+                "123Qwerty!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -36,7 +37,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_WrongEmail_WOSpecSymbol(){
-        User user = new User("familymail.ru", "Family123!");
+        User user = new User("123qwegmail.com", "123Qwerty!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -48,7 +49,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_WrongEmail_Empty(){
-        User user = new User("", "Family123!");
+        User user = new User("", "123Qwerty!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -60,7 +61,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_WrongPassword_Short(){
-        User user = new User("family@mail.ru", "WP123");
+        User user = new User("123qwe@gmail.com", "Wp!123");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -72,7 +73,7 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginNegativeTest_WrongPassword_WOUpperCase(){
-        User user = new User("family@mail.ru", "family123");
+        User user = new User("123qwe@gmail.com", "123qwerty!");
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
@@ -81,7 +82,5 @@ public class LoginTests extends AppManager {
         Assert.assertEquals(loginPage.closeAlertReturnText(),
                 "Wrong email or password");
     }
-
-
 
 }
