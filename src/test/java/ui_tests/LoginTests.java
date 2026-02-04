@@ -8,6 +8,7 @@ import pages.ContactPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.RetryAnalyzer;
+import static utils.PropertiesReader.*;
 
 public class LoginTests extends AppManager {
     @Test(retryAnalyzer = RetryAnalyzer.class)
@@ -16,8 +17,9 @@ public class LoginTests extends AppManager {
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
-        loginPage.typeLoginRegistrationForm("123qwe@gmail.com",
-                "123Qwerty!");
+        //loginPage.typeLoginRegistrationForm("123qwe@gmail.com","123Qwerty!");
+        loginPage.typeLoginRegistrationForm(getProperty("base.properties", "login")
+                ,getProperty("base.properties", "password"));
         loginPage.clickBtnLoginForm();
         Assert.assertTrue(new ContactPage(getDriver())
                 .isTextInBtnAddPresent("ADD"));
@@ -25,8 +27,8 @@ public class LoginTests extends AppManager {
 
     @Test
     public void loginPositiveTestWithUser(){
-        User user = new User("123qwe@gmail.com",
-                "123Qwerty!");
+        User user = new User(getProperty("base.properties", "password")
+                ,getProperty("base.properties", "login"));
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
