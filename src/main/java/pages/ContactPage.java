@@ -40,6 +40,7 @@ public class ContactPage extends BasePage {
                 return true;
             }
         }
+
         return false;
 
     }
