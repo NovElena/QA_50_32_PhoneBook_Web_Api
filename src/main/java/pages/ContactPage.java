@@ -41,6 +41,7 @@ public class ContactPage extends BasePage {
             }
         }
         return false;
+
     }
 
     @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
