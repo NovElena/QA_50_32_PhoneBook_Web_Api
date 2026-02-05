@@ -9,6 +9,7 @@ import pages.*;
 import utils.HeaderMenuItem;
 import static pages.BasePage.clickButtonHeader;
 import static utils.ContactFactory.*;
+import static utils.PropertiesReader.getProperty;
 
 public class AddNewContactTests extends AppManager {
     HomePage homePage;
@@ -21,7 +22,8 @@ public class AddNewContactTests extends AppManager {
     public void login() {
         homePage = new HomePage(getDriver());
         loginPage = BasePage.clickButtonHeader(HeaderMenuItem.LOGIN);
-        loginPage.typeLoginRegistrationForm("123qwe@gmail.com", "123Qwerty!");
+        loginPage.typeLoginRegistrationForm(getProperty("base.properties", "login")
+                ,getProperty("base.properties", "password"));
         loginPage.clickBtnLoginForm();
         contactPage = new ContactPage(getDriver());
         countOfContacts = contactPage.getCountOfContacts();
@@ -49,5 +51,8 @@ public class AddNewContactTests extends AppManager {
         Contact contact = positiveContact();
         addPage.typeContactForm(contact);
         contactPage.scrollToLastContact();
+        contactPage.clickLastContact();
+        String actualName = contactPage.getContactNameFromDetailedCard();
+        Assert.assertTrue(actualName.contains(contact.getName()));
     }
 }

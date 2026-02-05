@@ -12,8 +12,8 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 import java.util.List;
 
-public class ContactPage extends BasePage{
-    public ContactPage(WebDriver driver){
+public class ContactPage extends BasePage {
+    public ContactPage(WebDriver driver) {
         setDriver(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,
                 10), this);
@@ -26,52 +26,60 @@ public class ContactPage extends BasePage{
     @FindBy(xpath = "//h1[text()=' No Contacts here!']")
     WebElement contactPageMessage;
     @FindBy(className = "contact-item_card__2SOIM")
-    List<WebElement>contactsList;
+    List<WebElement> contactsList;
     @FindBy(xpath = "//div[@class='contact-item_card__2SOIM'][last()]")
     WebElement lastContact;
+    @FindBy(xpath = "//div[@class='contact-item-detailed_card__50dTS']//h2")
+    WebElement contactNameDetailed;
 
-    public boolean isContactPresent(Contact contact){
-        for(WebElement element: contactsList) {
+    public boolean isContactPresent(Contact contact) {
+        for (WebElement element : contactsList) {
             if (element.getText().contains(contact.getName())
-                    && element.getText().contains(contact.getPhone())){
+                    && element.getText().contains(contact.getPhone())) {
                 System.out.println(element.getText());
                 return true;
             }
         }
         return false;
     }
+
     @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
     WebElement divListContacts;
-    public void scrollToLastContact(){
+
+    public void scrollToLastContact() {
         Actions actions = new Actions(driver);
         //actions.scrollToElement(lastContact).perform();
 //        int deltaY = driver.findElement(By
-//                .xpath("//div[@class='contact-page_leftdiv__yhyke']/div"))
+//                        .xpath("//div[@class='contact-page_leftdiv__yhyke']/div"))
 //                .getSize().getHeight();
         int deltaY = divListContacts.getSize().getHeight();
         System.out.println("Height -->" + deltaY);
-        WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin.fromElement(contactsList.get(0));
+        WheelInput.ScrollOrigin scrollOrigin = WheelInput.ScrollOrigin
+                .fromElement(contactsList.get(0));
         pause(3);
-        actions.scrollFromOrigin(scrollOrigin, 0, deltaY).perform();
+        actions.scrollFromOrigin(scrollOrigin, 0, 10000).perform();
     }
 
-    public void clickLastContact(){
+    public void clickLastContact() {
         lastContact.click();
     }
 
-    public int getCountOfContacts(){
+    public int getCountOfContacts() {
         return contactsList.size();
     }
 
-    public boolean isTextInContactPageMessagePresent(String text){
+    public boolean isTextInContactPageMessagePresent(String text) {
         return isTextInElementPresent(contactPageMessage, text);
     }
 
-    public boolean isTextInBtnSignOutPresent(String text){
+    public boolean isTextInBtnSignOutPresent(String text) {
         return isTextInElementPresent(btnSignOut, text);
     }
 
-    public boolean isTextInBtnAddPresent(String text){
+    public boolean isTextInBtnAddPresent(String text) {
         return isTextInElementPresent(btnAdd, text);
+    }
+    public String getContactNameFromDetailedCard(){
+        return contactNameDetailed.getText();
     }
 }
