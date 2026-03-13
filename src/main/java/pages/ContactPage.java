@@ -31,6 +31,12 @@ public class ContactPage extends BasePage {
     WebElement lastContact;
     @FindBy(xpath = "//div[@class='contact-item-detailed_card__50dTS']//h2")
     WebElement contactNameDetailed;
+    @FindBy(xpath = "//div[@class='contact-item-detailed_card__50dTS']")
+    WebElement itemDetailCard;
+
+    public String getTextInContact(){
+       return itemDetailCard.getText();
+    }
 
     public boolean isContactPresent(Contact contact) {
         for (WebElement element : contactsList) {

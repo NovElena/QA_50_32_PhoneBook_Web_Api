@@ -13,7 +13,7 @@ public class ContactFactory {
                 .phone(faker.number().digits(13))
                 .email(faker.internet().emailAddress())
                 .address(faker.address().fullAddress())
-                .descriptions("My family")
+                .description("My family")
                 .build();
     }
 }
