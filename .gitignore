@@ -19,6 +19,7 @@ out/
 src/test/properties
 src/test/resources/test_logs
 
+
 ### Eclipse ###
 .apt_generated
 .classpath
