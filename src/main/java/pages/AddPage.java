@@ -35,8 +35,11 @@ public class AddPage extends BasePage{
         inputPhone.sendKeys(contact.getPhone());
         inputEmail.sendKeys(contact.getEmail());
         inputAddress.sendKeys(contact.getAddress());
-        inputDescription.sendKeys(contact.getDescriptions());
+        inputDescription.sendKeys(contact.getDescription());
         btnSave.click();
 
+    }
+    public boolean isButtonSaveDisabled(){
+        return !btnSave.isEnabled();
     }
 }

@@ -38,8 +38,8 @@ public class AddNewContactTests extends AppManager {
         addPage.typeContactForm(positiveContact());
         int countOfContactsAfterAdd = contactPage.getCountOfContacts();
         Assert.assertEquals(countOfContactsAfterAdd, countOfContacts + 1);
-
     }
+
     @Test(dataProvider = "dataProviderFromFile", dataProviderClass = ContactDataProvider.class)
     public void addNewContactPositiveTest_WithDataProvider(Contact contact) {
         addPage.typeContactForm(contact);
