@@ -40,6 +40,6 @@ public class AddPage extends BasePage{
 
     }
     public boolean isButtonSaveDisabled(){
-        return !btnSave.isEnabled();
+        return !btnSave.isDisplayed();
     }
 }
