@@ -8,12 +8,16 @@ import pages.ContactPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.RetryAnalyzer;
+
+import java.lang.reflect.Method;
+
 import static utils.PropertiesReader.*;
 
 public class LoginTests extends AppManager {
     @Test(retryAnalyzer = RetryAnalyzer.class)
-    public void loginPositiveTest(){
+    public void loginPositiveTest(Method method){
         // System.out.println("first test");
+        logger.info("start test " + method.getName());
         HomePage homePage = new HomePage(getDriver());
         homePage.clickBtnLogin();
         LoginPage loginPage = new LoginPage(getDriver());
