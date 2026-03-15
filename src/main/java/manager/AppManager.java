@@ -12,10 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AppManager {
+    private WebDriver driver;
     public final static Logger logger =
             LoggerFactory.getLogger(AppManager.class);
-    private WebDriver driver;
-
     public WebDriver getDriver(){
         return driver;
     }
