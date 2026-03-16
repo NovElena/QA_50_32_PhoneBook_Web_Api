@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,12 @@ import java.lang.reflect.Method;
 
 public class WDListener implements WebDriverListener {
     Logger logger = LoggerFactory.getLogger(WDListener.class);
+
+    @Override
+    public void afterAnyAlertCall(Alert alert, Method method, Object[] args, Object result) {
+        WebDriverListener.super.afterAnyAlertCall(alert, method, args, result);
+        logger.info("Allert --> " + alert.toString());
+    }
 
     @Override
     public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
