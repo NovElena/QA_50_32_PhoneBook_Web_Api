@@ -33,6 +33,26 @@ public class ContactPage extends BasePage {
     WebElement contactNameDetailed;
     @FindBy(xpath = "//div[@class='contact-item-detailed_card__50dTS']")
     WebElement itemDetailCard;
+    @FindBy(xpath = "//button[text()='Remove']")
+    WebElement btnRemove;
+    @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
+    WebElement divListContacts;
+    @FindBy(xpath = "//button[text()='Edit']")
+    WebElement btnEdit;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[1]")
+    WebElement inputName;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[2]")
+    WebElement inputLastName;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[3]")
+    WebElement inputPhone;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[4]")
+    WebElement inputEmail;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[5]")
+    WebElement inputAddress;
+    @FindBy(xpath = "//div[@class='form_form__FOqHs']/input[6]")
+    WebElement inputDescription;
+    @FindBy(xpath = "//button[text()='Save']")
+    WebElement btnSave;
 
     public String getTextInContact(){
        return itemDetailCard.getText();
@@ -51,8 +71,8 @@ public class ContactPage extends BasePage {
 
     }
 
-    @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
-    WebElement divListContacts;
+//    @FindBy(xpath = "//div[@class='contact-page_leftdiv__yhyke']/div")
+//    WebElement divListContacts;
 
     public void scrollToLastContact() {
         Actions actions = new Actions(driver);
@@ -87,7 +107,30 @@ public class ContactPage extends BasePage {
     public boolean isTextInBtnAddPresent(String text) {
         return isTextInElementPresent(btnAdd, text);
     }
+
     public String getContactNameFromDetailedCard(){
         return contactNameDetailed.getText();
+    }
+
+    public void deleteFirstContact() {
+        contactsList.get(0).click();
+        btnRemove.click();
+    }
+
+    public void typeEditForm(Contact contact) {
+        contactsList.get(0).click();
+        btnEdit.click();
+        inputName.clear();
+        inputName.sendKeys(contact.getName());
+        inputLastName.clear();
+        inputLastName.sendKeys(contact.getLastName());
+        inputPhone.clear();
+        inputPhone.sendKeys(contact.getPhone());
+        //inputEmail.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inputEmail.sendKeys(contact.getEmail());
+        inputAddress.clear();
+        inputAddress.sendKeys(contact.getAddress());
+        pause(3);
+        btnSave.click();
     }
 }
