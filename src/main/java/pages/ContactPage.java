@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.Keys;
 
 import java.util.List;
 
@@ -126,7 +127,7 @@ public class ContactPage extends BasePage {
         inputLastName.sendKeys(contact.getLastName());
         inputPhone.clear();
         inputPhone.sendKeys(contact.getPhone());
-        //inputEmail.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inputEmail.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         inputEmail.sendKeys(contact.getEmail());
         inputAddress.clear();
         inputAddress.sendKeys(contact.getAddress());
