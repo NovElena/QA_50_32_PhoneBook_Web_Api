@@ -32,7 +32,7 @@ public class LoginTests extends AppManager {
                 .isTextInBtnAddPresent("ADD"));
     }
 
-    @Test
+    @Test(groups = {"smoke", "user"})
     public void loginPositiveTestWithUser(){
         User user = new User(getProperty("base.properties", "password")
                 ,getProperty("base.properties", "login"));
@@ -44,7 +44,7 @@ public class LoginTests extends AppManager {
         Assert.assertTrue(new ContactPage(getDriver()).isTextInBtnSignOutPresent("Sign Out"));
     }
 
-    @Test
+    @Test(groups = "negative")
     public void loginNegativeTest_WrongEmail_WOSpecSymbol(){
         User user = new User("123qwegmail.com", "123Qwerty!");
         HomePage homePage = new HomePage(getDriver());
@@ -56,7 +56,7 @@ public class LoginTests extends AppManager {
                 "Wrong email or password");
     }
 
-    @Test
+    @Test(groups = "negative")
     public void loginNegativeTest_WrongEmail_Empty(){
         User user = new User("", "123Qwerty!");
         HomePage homePage = new HomePage(getDriver());
@@ -68,7 +68,7 @@ public class LoginTests extends AppManager {
                 "Wrong email or password");
     }
 
-    @Test
+    @Test(groups = "negative")
     public void loginNegativeTest_WrongPassword_Short(){
         User user = new User("123qwe@gmail.com", "Wp!123");
         HomePage homePage = new HomePage(getDriver());
@@ -80,7 +80,7 @@ public class LoginTests extends AppManager {
                 "Wrong email or password");
     }
 
-    @Test
+    @Test(groups = "negative")
     public void loginNegativeTest_WrongPassword_WOUpperCase(){
         User user = new User("123qwe@gmail.com", "123qwerty!");
         HomePage homePage = new HomePage(getDriver());

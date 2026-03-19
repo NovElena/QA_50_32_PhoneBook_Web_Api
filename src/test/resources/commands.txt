@@ -1,0 +1,10 @@
+.\gradlew clean smoketests
+.\gradlew clean smoke_contact_tests
+.\gradlew clean negativetests
+.\gradlew clean different_tests -Dsuite=smoke_contact_tests
+.\gradlew clean browser_tests -Pbrowser=firefox
+
+
+через терминал компьтера
+cd C:\AutoProjects\QA_50_32_PhoneBook_Web_Api(путь к проекту в файловой системе вашего комьпьютера)  enter
+C:\AutoProjects\QA_50_32_PhoneBook_Web_Api>.\gradlew clean smoketests запуск задачи без запуска идеи
