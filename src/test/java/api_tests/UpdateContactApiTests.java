@@ -82,4 +82,5 @@ public class UpdateContactApiTests implements BaseApi, ILogin {
             System.out.println("Created exception");
         }
     }
+
 }

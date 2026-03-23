@@ -53,4 +53,5 @@ public class DeleteContactApiTests implements BaseApi, ILogin {
             System.out.println("Created exception");
         }
     }
+
 }

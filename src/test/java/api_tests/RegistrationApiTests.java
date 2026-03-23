@@ -100,4 +100,5 @@ public class RegistrationApiTests implements BaseApi {
         }
         Assert.assertEquals(response.code(), 500);
     }
+
 }

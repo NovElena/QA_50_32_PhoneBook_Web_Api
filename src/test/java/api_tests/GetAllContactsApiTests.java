@@ -66,4 +66,5 @@ public class GetAllContactsApiTests implements
             throw new RuntimeException(e);
         }
     }
+
 }
