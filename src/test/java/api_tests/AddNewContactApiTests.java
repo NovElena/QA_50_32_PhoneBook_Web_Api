@@ -52,6 +52,7 @@ public class AddNewContactApiTests implements BaseApi {
         //System.out.println(token.toString());
     }
 
+
     @Test
     public void addNewContactPositiveApiTest() {
         Contact contact = positiveContact();
