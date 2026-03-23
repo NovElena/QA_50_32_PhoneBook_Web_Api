@@ -13,14 +13,17 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.16.1'
     implementation group: 'org.testng', name: 'testng', version: '7.5.1'
 
+    implementation 'net.datafaker:datafaker:2.5.2'
+
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
     testCompileOnly 'org.projectlombok:lombok:1.18.28'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
 
-    implementation 'net.datafaker:datafaker:2.5.2'
-
     implementation 'ch.qos.logback:logback-classic:1.5.18'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
 }
 
