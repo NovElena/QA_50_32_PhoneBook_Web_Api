@@ -33,6 +33,31 @@ public class AppManager {
         //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
     }
+
+    @BeforeMethod(alwaysRun = true)
+    public void setup() {
+        //driver = new ChromeDriver();
+        switch (browser.toLowerCase()){
+            case "firefox":
+                driver = new FirefoxDriver();
+                System.out.println("Use FireFox");
+                break;
+            case "edge":
+                driver = new EdgeDriver();
+                System.out.println("Use Edge");
+                break;
+            case "chrome":
+                driver = new ChromeDriver();
+                System.out.println("Use Chrome");
+                break;
+        }
+        driver.manage().window().maximize();
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
+        WebDriverListener webDriverListener = new WDListener();
+        driver = new EventFiringDecorator<>(webDriverListener).decorate(driver);
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
     // (@BeforeMethod) setup --> (@Test) testName --> (@AfterMethod) tearDown
 
     @AfterMethod(enabled = true, alwaysRun = true)
