@@ -2,6 +2,7 @@ package utils;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.events.WebDriverListener;
@@ -42,13 +43,13 @@ public class WDListener implements WebDriverListener {
     @Override
     public void beforeClick(WebElement element) {
         WebDriverListener.super.beforeClick(element);
-        logger.info("Before click "+ element.getTagName());
+        logger.info("Before click {}", describeElement(element));
     }
 
     @Override
     public void afterClick(WebElement element) {
         WebDriverListener.super.afterClick(element);
-        logger.info("After click to element --> "+ element.getTagName());
+        logger.info("After click to element --> {}", describeElement(element));
     }
 
     @Override
@@ -72,13 +73,21 @@ public class WDListener implements WebDriverListener {
     @Override
     public void afterSendKeys(WebElement element, CharSequence... keysToSend) {
         WebDriverListener.super.afterSendKeys(element, keysToSend);
-        logger.info("use SendKeys to element {} type {}", element.getTagName(), keysToSend);
+        logger.info("use SendKeys to element {} type {}", describeElement(element), keysToSend);
     }
 
     @Override
     public void afterMaximize(WebDriver.Window window) {
         WebDriverListener.super.afterMaximize(window);
         logger.info("After maximize " + window.getSize());
+    }
+
+    private String describeElement(WebElement element) {
+        try {
+            return element.getTagName();
+        } catch (StaleElementReferenceException e) {
+            return "stale-element";
+        }
     }
 
 }

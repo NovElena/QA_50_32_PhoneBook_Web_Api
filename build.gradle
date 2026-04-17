@@ -25,6 +25,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
+    implementation 'io.rest-assured:rest-assured:4.5.1'
+    testImplementation 'io.qameta.allure:allure-testng:2.25.0'
+    testImplementation 'io.qameta.allure:allure-commandline:2.25.0'
+    testImplementation 'io.qameta.allure:allure-java-commons:2.25.0'
+
+
 }
 
 test {

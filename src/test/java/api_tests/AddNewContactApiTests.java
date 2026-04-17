@@ -1,6 +1,7 @@
 package api_tests;
 
 import dto.Contact;
+import dto.ErrorMessageDto;
 import dto.ResponseMessageDto;
 import dto.TokenDto;
 import dto.User;
@@ -48,6 +49,8 @@ public class AddNewContactApiTests implements BaseApi {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            throw new IllegalStateException("Login failed. Token was not received. Response code: " + response.code());
         }
         //System.out.println(token.toString());
     }
@@ -158,5 +161,137 @@ public class AddNewContactApiTests implements BaseApi {
             throw new RuntimeException(e);
         }
         Assert.assertEquals(response.code(), 500);
+    }
+
+    @Test
+    public void addNewContactNegative_EmptyName_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setName("");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("name"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void addNewContactNegative_EmptyLastName_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setLastName("");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("last"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void addNewContactNegative_WrongEmail_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setEmail("testmail.com");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("email"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void addNewContactNegative_EmptyPhone_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setPhone("");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("phone"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void addNewContactNegative_WrongPhoneFormat_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setPhone("12345 7890");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("phone"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void addNewContactNegative_EmptyAddress_ApiTest() {
+        Contact contact = positiveContact();
+        contact.setAddress("");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(contact), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + ADD_NEW_CONTACT_URL)
+                .addHeader(AUTH, token.getToken())
+                .post(requestBody)
+                .build();
+        try (Response response = OK_HTTP_CLIENT.newCall(request).execute()) {
+            Assert.assertEquals(response.code(), 400);
+            ErrorMessageDto errorMessageDto = GSON.fromJson(response.body().string(),
+                    ErrorMessageDto.class);
+            Assert.assertEquals(errorMessageDto.getStatus(), 400);
+            Assert.assertTrue(errorMessageDto.getMessage().toString().toLowerCase().contains("address"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

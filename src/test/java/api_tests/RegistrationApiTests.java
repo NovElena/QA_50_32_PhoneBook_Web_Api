@@ -32,7 +32,6 @@ public class RegistrationApiTests implements BaseApi {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(response.code());
         Assert.assertEquals(response.code(), 200);
     }
 
@@ -54,7 +53,6 @@ public class RegistrationApiTests implements BaseApi {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //System.out.println(response.code());
         Assert.assertEquals(response.code(), 400);
     }
 
@@ -101,4 +99,155 @@ public class RegistrationApiTests implements BaseApi {
         Assert.assertEquals(response.code(), 500);
     }
 
+    @Test
+    public void registrationNegative_Empty_Email_ApiTest() {
+        User user = new User("", "Qwerty145!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Email_Without_At_ApiTest() {
+        User user = new User("familymail.ru", "Qwerty145!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Empty_Password_ApiTest() {
+        User user = new User("family@mail.com", "");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Short_Password_ApiTest() {
+        User user = new User("family@mail.com", "Qwe1!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Password_Without_Uppercase_ApiTest() {
+        User user = new User("family@mail.com", "qwerty145!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Password_Without_Lowercase_ApiTest() {
+        User user = new User("family@mail.com", "QWERTY145!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Password_Without_Digit_ApiTest() {
+        User user = new User("family@mail.com", "Qwerty!!!");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
+
+    @Test
+    public void registrationNegative_Password_Without_Special_Character_ApiTest() {
+        User user = new User("family@mail.com", "Qwerty145");
+        RequestBody requestBody = RequestBody
+                .create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request)
+                    .execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(response.code(), 400);
+    }
 }

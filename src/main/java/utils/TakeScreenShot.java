@@ -19,8 +19,12 @@ public class TakeScreenShot {
         String fileName = createFileName();
         File scrFile = screenshot.getScreenshotAs(OutputType.FILE);
         try {
-            Files.copy(scrFile.toPath(),
-                    new File(fileName).toPath());
+            File targetFile = new File(fileName);
+            File parentDir = targetFile.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
+            }
+            Files.copy(scrFile.toPath(), targetFile.toPath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

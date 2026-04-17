@@ -119,6 +119,9 @@ public class ContactPage extends BasePage {
     }
 
     public void typeEditForm(Contact contact) {
+        if (contactsList.isEmpty()) {
+            throw new IllegalStateException("Contacts list is empty. Cannot edit contact.");
+        }
         contactsList.get(0).click();
         btnEdit.click();
         inputName.clear();

@@ -58,7 +58,7 @@ public class GetAllContactsApiTests implements
             System.out.println(errorMessageDto);
             softAssert.assertEquals(errorMessageDto.getError(),
                     "Unauthorized", "validate error name");
-            softAssert.assertTrue(errorMessageDto.getMessage().contains
+            softAssert.assertTrue(errorMessageDto.getMessage().toString().contains
                             ("strings must contain exactly 2 period characters."),
                     "validate message");
             softAssert.assertAll();

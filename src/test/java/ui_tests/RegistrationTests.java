@@ -2,6 +2,8 @@ package ui_tests;
 
 import dto.User;
 import manager.AppManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,6 +15,7 @@ import java.util.Random;
 import static utils.UserFactory.*;
 
 public class RegistrationTests extends AppManager {
+    private static final Logger logger = LoggerFactory.getLogger(RegistrationTests.class);
     LoginPage loginPage;
 
     @BeforeMethod(alwaysRun = true)
@@ -53,7 +56,7 @@ public class RegistrationTests extends AppManager {
 
     @Test(groups = "negative")
     public void registrationNegativeTest_WrongEmail_WOAtSymbol(){
-        User user = new User("wrongEmail1gmail.com", "Password124!");
+        User user = new User("Emailgmail.com", "Password124!");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnRegistrationForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
@@ -71,7 +74,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationNegativeTest_WrongPassword_WOUpperCase(){
-        User user = new User("wrongEmail1gmail.com", "password124!");
+        User user = new User("Email1@gmail.com", "password124!");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnRegistrationForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");
@@ -80,7 +83,7 @@ public class RegistrationTests extends AppManager {
 
     @Test
     public void registrationNegativeTest_WrongPassword_WOSpecSymbol(){
-        User user = new User("wrongEmail1gmail.com", "Password124");
+        User user = new User("Email1@gmail.com", "Password124");
         loginPage.typeLoginRegistrationFormWithUser(user);
         loginPage.clickBtnRegistrationForm();
         Assert.assertEquals(loginPage.closeAlertReturnText(),"Wrong email or password format");

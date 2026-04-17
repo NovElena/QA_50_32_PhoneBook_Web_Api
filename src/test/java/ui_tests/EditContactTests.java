@@ -2,7 +2,6 @@ package ui_tests;
 
 import dto.Contact;
 import manager.AppManager;
-import org.checkerframework.checker.units.qual.A;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -40,7 +39,7 @@ public class EditContactTests extends AppManager {
                 .isContactPresent(contact));
     }
 
-    @Test(groups = "negative")
+    @Test(groups = {"smoke", "contact"})
     public void editFirstContactPositiveTest_WithCardOfContact() {
         Contact contact = ContactFactory
                 .positiveContact();
